@@ -1,7 +1,5 @@
 (require 'clojure.contrib.strint)
 
-(def denoms {2000 "Twenties", 1000 "Tens", 500 "Fives", 100 "Ones", 25 "Quarters", 10 "Dimes", 5 "Nickels", 1 "Pennies"})
-
 (defn calc-coins [amount denom]
   {:mod (mod amount denom),
    :dividend (int (/ amount denom))})
@@ -36,7 +34,8 @@
      denoms)))
 
 (defn make-change [amount]
-  "'pretty-prints' the results of the change action."
+  (def denoms {2000 "Twenties", 1000 "Tens", 500 "Fives", 100 "Ones",
+               25 "Quarters", 10 "Dimes", 5 "Nickels", 1 "Pennies"})
   (let [bar (for [i (keys (last (clos amount)))] {(last (find denoms i))
                                                   (last (find result i))})]
     (for [item bar] (<< "~{(first (keys item))}: ~{(first (vals item))}"))))

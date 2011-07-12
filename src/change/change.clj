@@ -1,4 +1,7 @@
-(require 'clojure.contrib.strint)
+(ns change
+  (:require 'clojure.contrib.strint)
+  (:require [compojure.route :as route])
+  (:use compojure.core, ring.adapter.jetty))
 
 (defn calc-coins [amount denom]
   {:mod (mod amount denom),
@@ -40,3 +43,8 @@
         bar (for [i (keys result)] {(last (find denoms i))
                                      (last (find result i))})]
     (for [item bar] (<< "~{(first (keys item))}: ~{(first (vals item))}"))))
+
+(defn prompt-read [prompt]
+  (print (format "%s: " prompt))
+  (flush )
+  (read-line))
